@@ -22,12 +22,43 @@ export class AppService {
 
   getAllSpaceX() {
     const body = JSON.stringify({});
-    console.log("Request body is ", body);
-    return this.http.get(this.httpPath + "?limit=100").pipe(map((response) => {
+    let params = new HttpParams();
+    params = params.append('limit', '100');
+    return this.http.get(this.httpPath, { params: params }).pipe(map((response) => {
       return response;
     }), tap(event => { }, this.handleError))
   }
+
+  getSpaceXLaunch(param: any): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('launch_success', param);
+    return this.http.get(this.httpPath, { params: params });
+  }
+
+  getAllSpaces(launch_year: any, launch_success: any, land_success: any): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('limit', '100');
+    params = params.append('launch_success', launch_success);
+    params = params.append('land_success', land_success);
+    params = params.append('launch_year', launch_year);
+    return this.http.get(this.httpPath, { params: params }).pipe(map((response) => {
+      return response;
+    }), tap(event => { }, this.handleError));
+
+  }
+
+  getLaunchLand(launch_success: any, land_success: any): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('limit', '100');
+    params = params.append('launch_success', launch_success);
+    params = params.append('land_success', land_success);
+    return this.http.get(this.httpPath, { params: params }).pipe(map((response) => {
+      return response;
+    }), tap(event => { }, this.handleError));
+  }
+
   private handleError(err: Error | HttpErrorResponse) {
     console.log("Error in handleError is ", err);
   }
 }
+
