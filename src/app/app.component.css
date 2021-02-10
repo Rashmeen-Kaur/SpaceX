@@ -1,0 +1,240 @@
+.container {
+    display: flex;
+  }
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  width: 19.5%;
+  height: 600px;
+}
+.filter-container {
+  width: 20%;
+  background-color: white;
+  height: fit-content;
+  padding-bottom: 5%;
+}
+.launch-card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  width: 24%;
+  background-color: white;
+  height: fit-content;
+}
+.img-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: lightgray;
+  }
+.img-avatar {
+  height: 150px;
+  width: 150px;
+}
+.launches-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+}
+.filter-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.filters-btn {
+  background-color: #c9f75c;
+  border-color: #c9f75c;
+  border-radius: 4px;
+  padding: 10px;
+  padding: 10px 25px;
+  margin: 5px;
+}
+.filters-btn:hover {
+  background-color: darkgreen;
+}
+.filters-btn:focus {
+  background-color: green !important;
+}
+.partition {
+  width: 70%;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.filter-text {
+  padding-left: 15px;
+  padding-top: 15px;
+}
+.launch-land-button {
+  text-align: center;
+}
+.reset-button {
+    text-align:center
+}
+.reset-btn {
+    background-color: #c9f75c;
+    border-color: #c9f75c;
+    border-radius: 4px;
+    padding: 10px 25px;
+    margin-top: 0;
+    /* //margin-left: 4vw; */
+    /* align-self: center !important; */
+    font-weight: 100;
+}
+.reset-btn:hover {
+  background-color: darkgreen;
+}
+
+.field-text {
+    color: #aeb1d1;
+}
+
+.sign {
+    padding: 40px;
+    text-align: center;
+  }
+.sign-text {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 500;
+}
+
+/***** BEYOND 1440PX VIEWPORT *****/
+@media only screen and (min-width: 1440px) {
+  .container {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 1440px;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  .filter-container {
+    width: 20% !important;
+    margin: 0;
+  }
+
+  .launches-container {
+    display: flex !important;
+    flex-wrap: wrap;
+    width: 80% !important;
+  }
+  .launches-container > div {
+    margin-top: 0px;
+    margin-bottom: 10px;
+  }
+
+  .launch-card {
+    width: 24%;
+    margin-left: 1%;
+  }
+  .launch-year {
+    width: 50%;
+  }
+  .year-btn {
+    text-align: center;
+  }
+  .filter-text {
+    padding-left: 15px;
+    padding-top: 0px !important;
+  }
+}
+
+/***** DESKTOP VIEW *****/
+@media only screen and (min-width: 1024px) and (max-width: 1440px) {
+  .filter-container {
+    width: 20% !important;
+    margin: 0;
+  }
+
+  .launches-container {
+    display: flex !important;
+    flex-wrap: wrap;
+    width: 80% !important;
+  }
+  .launches-container > div {
+    margin-top: 0px;
+    margin-bottom: 10px;
+  }
+
+  .launch-card {
+    width: 24%;
+    margin-left: 1%;
+  }
+  .launch-year {
+    width: 50%;
+  }
+  .year-btn {
+    text-align: center;
+  }
+  .filter-text {
+    padding-left: 15px;
+    padding-top: 0px !important;
+  }
+}
+
+/***** TABLET VIEW *****/
+@media only screen and (min-width: 700px) and (max-width: 1024px) {
+  .filter-container {
+    width: 33.33% !important;
+    margin: 0;
+  }
+
+  .launches-container {
+    display: flex !important;
+    flex-wrap: wrap;
+    width: 66% !important;
+  }
+  .launches-container > div {
+    margin-top: 0px;
+    margin-bottom: 10px;
+  }
+
+  .launch-card {
+    width: 49%;
+    margin-left: 1%;
+  }
+  .launch-year {
+    width: 50%;
+  }
+  .year-btn {
+    text-align: center;
+  }
+  .filter-text {
+    padding-left: 15px;
+    padding-top: 0px !important;
+  }
+  .reset-btn {
+      /* margin-left: 8vw; */
+  }
+}
+
+/***** MOBILE VIEW *****/
+@media only screen and (max-width: 700px) {
+  .container {
+    display: block;
+  }
+
+  .filter-container {
+    width: 100% !important;
+    margin: 0;
+  }
+
+  .launches-container {
+    display: block;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .launches-container > div {
+    margin-top: 10px;
+  }
+
+  .launch-card {
+    width: 100%;
+  }
+  .launch-year {
+    width: 50%;
+  }
+  .year-btn {
+    text-align: center;
+  }
+  .reset-btn {
+      /* margin-left: 38vw; */
+  }
+}

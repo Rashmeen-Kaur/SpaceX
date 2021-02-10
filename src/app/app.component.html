@@ -1,10 +1,86 @@
-<!-- <h2>SpaceX Launch Programs</h2>
-<div>
-  <tr *ngFor="let spaceX of spaceXList">
-    <td>{{spaceX.flight_number}}</td>
-  </tr>
-</div> -->
+<h2 class="container">SpaceX Launch Program</h2>
+<div class="container">
+  <div class="card filter-container">
+    <h4 class="filter-text">Filters</h4>
+    <p style="text-align: center; margin: 0">Launch Year</p>
+    <hr class="partition" />
+    <div class="filter-flex-container">
+      <div *ngFor="let year of launchYears; let i = index" class="launch-year">
+        <div (click)="filterYear(year)" class="year-btn">
+          <button class="filters-btn" tabindex="{{ i + 1 }}">
+            {{ year }}
+          </button>
+        </div>
+      </div>
+    </div>
 
+    <p style="text-align: center; margin: 0; margin-top: 35px">
+      <b>Successful Launch</b>
+    </p>
+    <hr class="partition" />
+    <br />
+    <div class="launch-land-button">
+      <button class="filters-btn" (click)="filterLaunches($event)" value="true" tabindex="1">True</button>
+      <button class="filters-btn" (click)="filterLaunches($event)" tabindex="2">False</button>
+    </div>
+    <p style="text-align: center; margin: 0; margin-top: 35px">
+      <b>Successful Landing</b>
+    </p>
+    <hr class="partition" />
+    <br />
+    <div class="launch-land-button">
+      <button class="filters-btn" (click)="filterLand($event)" tabindex="1">True</button>
+      <button class="filters-btn" (click)="filterLand($event)" tabindex="2">False</button>
+    </div>
+    <p style="text-align: center; margin: 0; margin-top: 35px">
+      <b>Reset Filters</b>
+    </p>
+    <hr class="partition" />
+    <br />
+    <div class="reset-button">
+      <h4>
+        <button class="reset-btn" (click)="resetFilters()">Reset Filters</button>
+      </h4>
+    </div>
+  </div>
 
+  <div class="launches-container">
+    <div *ngFor="let spaceX of spaceXList" class="launch-card">
+      <div style="padding: 20px;">
+        <div class="img-container">
+          <img src="{{ spaceX.links.mission_patch_small }}" alt="avatar" class="img-avatar" />
+        </div>
 
-<router-outlet></router-outlet>
+        <h4 style="color: #1224e6">
+          {{ spaceX.mission_name }} # {{ spaceX.flight_number }}
+        </h4>
+        <h4>
+          Mission_ID:
+          <ul>
+            <li class="field-text">{{ spaceX.mission_id }}</li>
+          </ul>
+        </h4>
+        <h4>
+          Launch Year:
+          <span class="field-text">{{ spaceX.launch_year }}</span>
+        </h4>
+        <h4>
+          Successful Launch:
+          <span class="field-text">{{ spaceX.launch_success }}</span>
+        </h4>
+        <h4>
+          Successful Landing:<span class="field-text">{{
+            spaceX.rocket.first_stage.cores[0].land_success
+          }}</span>
+        </h4>
+      </div>
+    </div>
+    <h1 *ngIf="spaceXListCount == 0"
+      style="margin-left: 35%; font-family: Georgia, 'Times New Roman', Times, serif;font-size: 5vw;">
+      <b> No Match Found </b>
+    </h1>
+  </div>
+</div>
+<div class="sign">
+  <p class="sign-text"> <b>Developed By: </b> <i>Rashmeen Kaur</i></p>
+</div>
