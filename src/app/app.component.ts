@@ -13,15 +13,13 @@ export class AppComponent {
   responseData = [];
   spaceXList: any = [];
   launchYears: any = [];
-  launchState: any;
+  launchState: any = "";
   spaceXListCount = 0;
   landState: string = "";
   year: string = "";
   constructor(private appService: AppService, private router: Router) { }
 
   ngOnInit() {
-    console.log("Hello");
-
     this.appService.getAllSpaceX().subscribe(
       res => {
         //Parsing the response res
@@ -30,7 +28,7 @@ export class AppComponent {
           this.spaceXListCount = this.responseData.length;
           for (let i = 0; i < this.responseData.length; i++) {
             var parsedData = JSON.parse(JSON.stringify(this.responseData[i]));
-            console.log("res of is , ", parsedData)
+            // console.log("res of is , ", parsedData)
             this.spaceXList.push(parsedData)
           }
           //Storing launch years in local array
@@ -47,7 +45,7 @@ export class AppComponent {
               return parseInt(a) - parseInt(b)
             }
           )
-          console.log("Years are ", this.launchYears);
+          // console.log("Years are ", this.launchYears);
         } else {
           this.spaceXListCount = 0;
         }
@@ -81,7 +79,11 @@ export class AppComponent {
 
   // Filtering on the basis of different conditions
   filterLand(event: any) {
+
     this.landState = event.target.textContent.toLowerCase();
+    // console.log("this/landState ", this.landState);
+    // console.log("this/launchState ", this.launchState);
+    // console.log("this.year ", this.year);
 
     if (this.launchState != "" && this.landState != "" && this.year == "") {
       this.appService.getLaunchLand(this.launchState, this.landState).subscribe((res) => {
@@ -95,13 +97,17 @@ export class AppComponent {
         return;
       });
     } else {
+      // console.log("Inside else");
       this.appService.getAllSpaceX().subscribe((res: any) => {
+        // console.log("Inside", this.landState);
         var land_status = this.landState;
+        // console.log(typeof land_status);
         this.spaceXList = res.filter(function (elem: any) {
-          return elem.rocket.first_stage.cores[0].land_success == land_status;
+          // console.log("land_success is ", typeof elem.rocket.first_stage.cores[0].land_success);
+          return JSON.stringify(elem.rocket.first_stage.cores[0].land_success) === land_status
         })
-        this.spaceXList = res;
-        this.spaceXListCount = res.length;
+        // console.log("List is ", this.spaceXList);
+        this.spaceXListCount = this.spaceXList.length;
         return;
       });
     }
@@ -115,7 +121,7 @@ export class AppComponent {
       this.spaceXListCount = res.length;
       for (let i = 0; i < this.responseData.length; i++) {
         var parsedData = JSON.parse(JSON.stringify(this.responseData[i]));
-        console.log("res of is , ", parsedData)
+        // console.log("res of is , ", parsedData)
         this.spaceXList.push(parsedData)
       }
       return;
