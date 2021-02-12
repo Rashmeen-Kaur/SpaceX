@@ -7,7 +7,7 @@
     <div class="filter-flex-container">
       <div *ngFor="let year of launchYears; let i = index" class="launch-year">
         <div (click)="filterYear(year)" class="year-btn">
-          <button class="filters-btn" tabindex="{{ i + 1 }}">
+          <button [ngClass]="filteredYear==year?'filterActivate' : 'filters-btn'" tabindex="{{ i + 1 }}">
             {{ year }}
           </button>
         </div>
@@ -20,8 +20,10 @@
     <hr class="partition" />
     <br />
     <div class="launch-land-button">
-      <button class="filters-btn" (click)="filterLaunches($event)" value="true" tabindex="1">True</button>
-      <button class="filters-btn" (click)="filterLaunches($event)" tabindex="2">False</button>
+      <button [ngClass]="flgLaunchTrue?'filterActivate' : 'filters-btn'" (click)="filterLaunches($event)" value="true"
+        tabindex="1">True</button>
+      <button [ngClass]="flgLaunchFalse?'filterActivate' : 'filters-btn'" (click)="filterLaunches($event)"
+        tabindex="2">False</button>
     </div>
     <p style="text-align: center; margin: 0; margin-top: 35px">
       <b>Successful Landing</b>
@@ -29,8 +31,10 @@
     <hr class="partition" />
     <br />
     <div class="launch-land-button">
-      <button class="filters-btn" (click)="filterLand($event)" tabindex="1">True</button>
-      <button class="filters-btn" (click)="filterLand($event)" tabindex="2">False</button>
+      <button [ngClass]="flgLandTrue?'filterActivate' : 'filters-btn'" (click)="filterLand($event)"
+        tabindex="1">True</button>
+      <button [ngClass]="flgLandFalse?'filterActivate' : 'filters-btn'" (click)="filterLand($event)"
+        tabindex="2">False</button>
     </div>
     <p style="text-align: center; margin: 0; margin-top: 35px">
       <b>Reset Filters</b>
@@ -46,7 +50,7 @@
 
   <div class="launches-container">
     <div *ngFor="let spaceX of spaceXList" class="launch-card">
-      <div style="padding: 20px;">
+      <div style="padding: 10px;">
         <div class="img-container">
           <img src="{{ spaceX.links.mission_patch_small }}" alt="avatar" class="img-avatar" />
         </div>

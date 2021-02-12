@@ -19,13 +19,15 @@
   transition: 0.3s;
   width: 24%;
   background-color: white;
-  height: fit-content;
+  height: 450px;
 }
 .img-container {
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: lightgray;
+    width: fit-content;
+    height: fit-content;
   }
 .img-avatar {
   height: 150px;
@@ -54,6 +56,18 @@
 .filters-btn:focus {
   background-color: green !important;
 }
+
+.filterActivate{
+  background-color: green !important;
+  border-color: #c9f75c;
+  border-radius: 4px;
+  padding: 10px;
+  padding: 10px 25px;
+  margin: 5px;
+}
+#yearActivate{
+  background-color: green !important;
+}
 .partition {
   width: 70%;
   margin-top: 0;
@@ -63,6 +77,7 @@
   padding-left: 15px;
   padding-top: 15px;
 }
+
 .launch-land-button {
   text-align: center;
 }
@@ -123,6 +138,7 @@
   .launch-card {
     width: 24%;
     margin-left: 1%;
+
   }
   .launch-year {
     width: 50%;

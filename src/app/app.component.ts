@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AppService } from './app.service';
 import * as _ from 'underscore';
-import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -17,7 +16,13 @@ export class AppComponent {
   spaceXListCount = 0;
   landState: string = "";
   year: string = "";
-  constructor(private appService: AppService, private router: Router) { }
+  flgActive: boolean = false;
+  flgLandTrue: boolean = false;
+  flgLandFalse: boolean = false;
+  flgLaunchTrue: boolean = false;
+  flgLaunchFalse: boolean = false;
+  filteredYear: string = "";
+  constructor(private appService: AppService) { }
 
   ngOnInit() {
     this.appService.getAllSpaceX().subscribe(
@@ -60,19 +65,59 @@ export class AppComponent {
 
   // Filtering on the basis of launch_success
   filterLaunches(event: any) {
+    var year = this.year;
+    var land_status = this.landState;
     this.launchState = event.target.textContent.toLowerCase();
+    if (this.launchState == 'true') {
+      this.flgLaunchTrue = true;
+      this.flgLaunchFalse = false;
+    } else {
+      this.flgLaunchFalse = true;
+      this.flgLaunchTrue = false;
+    }
+    // console.log("inside filter year ", this.launchState, land_status, year)
     this.appService.getSpaceXLaunch(this.launchState).subscribe((res) => {
-      this.spaceXList = res;
-      this.spaceXListCount = res.length;
+      // this.spaceXList = res;
+      this.spaceXList = res.filter(function (elem: any) {
+        if (year != "" && land_status != "") {
+          return elem.launch_year == year && JSON.stringify(elem.rocket.first_stage.cores[0].land_success) === land_status;
+        } else if (year != "") {
+          return elem.launch_year == year
+        } else if (land_status != "") {
+          return JSON.stringify(elem.rocket.first_stage.cores[0].land_success) === land_status
+        } else {
+          return elem;
+        }
+      })
+      // this.spaceXListCount = res.length;
+      this.spaceXListCount = this.spaceXList.length;
     });
   }
 
   // Filtering on the basis of launch_year
   filterYear(year: any) {
+    this.year = year;
+    this.filteredYear = year;
+    var land_status = this.landState;
+    var launch_status = this.launchState;
+    // console.log("inside filter year ", this.year, land_status, launch_status)
     this.appService.getAllSpaceX().subscribe((res: any) => {
       this.spaceXList = res.filter(function (elem: any) {
-        return elem.launch_year == year;
+        if (land_status != "" && launch_status != "") {
+          // console.log("Inside else if of year launch_status && land_status")
+          return elem.launch_year == year && JSON.stringify(elem.rocket.first_stage.cores[0].land_success) === land_status && JSON.stringify(elem.launch_success) === launch_status;
+        } else if (land_status == "" && launch_status != "") {
+          // console.log("Inside else if of year launch_status")
+          return elem.launch_year == year && JSON.stringify(elem.launch_success) === launch_status;
+        } else if (land_status != "" && launch_status == "") {
+          // console.log("Inside else if of year land_status")
+          return elem.launch_year == year && JSON.stringify(elem.rocket.first_stage.cores[0].land_success) === land_status;
+        } else {
+          // console.log("Inside else of year")
+          return elem.launch_year == year;
+        }
       })
+      this.spaceXListCount = this.spaceXList;
     });
   }
 
@@ -81,6 +126,13 @@ export class AppComponent {
   filterLand(event: any) {
 
     this.landState = event.target.textContent.toLowerCase();
+    if (this.landState == 'true') {
+      this.flgLandTrue = true;
+      this.flgLandFalse = false;
+    } else {
+      this.flgLandFalse = true;
+      this.flgLandTrue = false;
+    }
     // console.log("this/landState ", this.landState);
     // console.log("this/launchState ", this.launchState);
     // console.log("this.year ", this.year);
@@ -116,6 +168,11 @@ export class AppComponent {
   // Resetting all the filters
 
   resetFilters() {
+    this.flgLandFalse = false;
+    this.flgLandTrue = false;
+    this.flgLaunchFalse = false;
+    this.flgLaunchTrue = false;
+    this.filteredYear = "";
     this.appService.getAllSpaceX().subscribe((res: any) => {
       this.spaceXList = [];
       this.spaceXListCount = res.length;
@@ -130,5 +187,3 @@ export class AppComponent {
 
 
 }
-
-
